@@ -12,6 +12,8 @@ const ControlPresupuesto = ({ presupuesto, gastos }) => {
       setGastado(totalGastado)
       setDisponible( totalDisponible)
     }, [gastos])
+
+    // TODo; 22 .........................................
     
 
     const formatearCantidad = (cantidad) => {
