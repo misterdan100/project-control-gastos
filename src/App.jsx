@@ -4,6 +4,7 @@ import IconoNuevoGasto from "./img/nuevo-gasto.svg";
 import Modal from "./components/Modal";
 import ListadoGastos from "./components/ListadoGastos";
 import { generarId } from "./helpers";
+import Filtros from "./components/Filtros";
 
 function App() {
   const [presupuesto, setPresupuesto] = useState(
@@ -14,9 +15,16 @@ function App() {
   const [ modal, setModal ] = useState(false);
   const [ animarModal, setAnimarModal ] = useState(false)
 
-  const [ gastos, setGastos ] = useState([]);
+  const [ gastos, setGastos ] = useState(
+    localStorage.getItem('gastos') ? JSON.parse(localStorage.getItem('gastos')) : []
+  );
 
   const [ gastoEditar, setGastoEditar ] = useState({});
+
+  const [ filtro, setFiltro ] = useState('');
+  const [ gastosFiltrados, setGastosFiltrados ] = useState([])
+
+
 
   useEffect(() => {
     if(Object.keys(gastoEditar).length) {
@@ -33,14 +41,27 @@ function App() {
   useEffect(() => {
     localStorage.setItem('presupuesto', presupuesto ?? 0)
   }, [presupuesto])
+
+    // Save Spences on Local Storage
+    useEffect( () => {
+      localStorage.setItem('gastos', JSON.stringify(gastos) ?? []) 
+    }, [gastos])
   
   useEffect( () => {
     const presupuestoLS = Number(localStorage.getItem('presupuesto')) ?? 0;
-
     if( presupuestoLS > 0 ) {
       setIsValidPresupuesto(true)
     }
   }, [])
+
+  useEffect( () => {
+    if( filtro ) {
+      const gastosFiltrados = gastos.filter( gasto => gasto.categoria === filtro)
+      setGastosFiltrados(gastosFiltrados)
+    }
+  }, [filtro])
+
+
   
   const handleNuevoGasto = () => {
     setModal(true)
@@ -83,16 +104,25 @@ function App() {
         setPresupuesto={setPresupuesto}
         isValidPresupuesto={isValidPresupuesto}
         setIsValidPresupuesto={setIsValidPresupuesto}
+        setGastos={setGastos}
       />
 
       {isValidPresupuesto && (
         <>
         <main>
+
+          <Filtros
+            filtro={filtro}
+            setFiltro={setFiltro}
+          />
+
           <ListadoGastos
             gastos={gastos}
             gastoEditar={gastoEditar}
             setGastoEditar={setGastoEditar}
             eliminarGasto={eliminarGasto}
+            gastosFiltrados={gastosFiltrados}
+            filtro={filtro}
           />
         </main>
         
@@ -115,7 +145,9 @@ function App() {
                   setGastoEditar={setGastoEditar}
                 />}
 
+      <span className="credits">Developed by <a href="https://github.com/misterdan100" target="_blank">Daniel Caceres</a></span>
     </div>
+
 
   );
 }
