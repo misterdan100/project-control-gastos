@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar'
 import 'react-circular-progressbar/dist/styles.css';
+import { PencilSquareIcon } from '@heroicons/react/24/solid'
 
 const ControlPresupuesto = ({ presupuesto, gastos, setPresupuesto, setGastos, setIsValidPresupuesto }) => {
 
@@ -37,6 +38,10 @@ const ControlPresupuesto = ({ presupuesto, gastos, setPresupuesto, setGastos, se
             setIsValidPresupuesto(false)
         }
     }
+
+    const handleEditarPresupuesto = () => {
+        setIsValidPresupuesto(false)
+    }
   return (
     <div className='contenedor-presupuesto contenedor sombra dos-columnas'>
         <div>
@@ -59,8 +64,12 @@ const ControlPresupuesto = ({ presupuesto, gastos, setPresupuesto, setGastos, se
                 Resetear App
             </button>
 
-            <p>
+            <p className='presupuesto'>
                 <span>Presupuesto: </span>{formatearCantidad(presupuesto)}
+                <PencilSquareIcon 
+                    className='edit-icon'
+                    onClick={handleEditarPresupuesto}    
+                />
             </p>
 
             <p className={`${disponible < 0 ? 'negativo' : ''}`}>

@@ -415,3 +415,19 @@ body .modal {
     margin-top: 16px;
     margin-bottom: 16px;
 }
+
+.edit-icon {
+    height: 30px;
+    transition: all 0.3s;
+}
+
+.edit-icon:hover {
+    color: #b91c1c;
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+.contenido-presupuesto .presupuesto {
+    display: flex;
+    align-items: center;
+}
