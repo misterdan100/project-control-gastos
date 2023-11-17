@@ -431,3 +431,16 @@ body .modal {
     display: flex;
     align-items: center;
 }
+
+.buttons-container {
+    display: flex;
+    gap: 12px;
+}
+
+.new-expese {
+    background: #38bdf8;
+}
+
+.new-expese:hover {
+    background: #26a4d9;
+}

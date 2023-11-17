@@ -3,7 +3,7 @@ import { CircularProgressbar, buildStyles } from 'react-circular-progressbar'
 import 'react-circular-progressbar/dist/styles.css';
 import { PencilSquareIcon } from '@heroicons/react/24/solid'
 
-const ControlPresupuesto = ({ presupuesto, gastos, setPresupuesto, setGastos, setIsValidPresupuesto }) => {
+const ControlPresupuesto = ({ presupuesto, gastos, setPresupuesto, setGastos, setIsValidPresupuesto, handleNuevoGasto }) => {
 
     const [ porcentaje, setPorcentaje ] = useState(0)
     const [ disponible, setDisponible] = useState(0)
@@ -57,12 +57,23 @@ const ControlPresupuesto = ({ presupuesto, gastos, setPresupuesto, setGastos, se
         </div>
 
         <div className='contenido-presupuesto'>
+            <div className='buttons-container'>
+            <button className='reset-app new-expese'
+                type='button'
+                onClick={handleNuevoGasto}
+            >
+                Nuevo Gasto
+            </button>
+            
             <button className='reset-app'
                 type='button'
                 onClick={handleResetApp}
             >
                 Resetear App
             </button>
+
+
+            </div>
 
             <p className='presupuesto'>
                 <span>Presupuesto: </span>{formatearCantidad(presupuesto)}
